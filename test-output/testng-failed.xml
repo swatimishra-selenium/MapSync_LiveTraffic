@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <test thread-count="5" name="Test(failed)">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="testcases.ExcuteTest">
+        <methods>
+          <include name="clickLiveInfo"/>
+          <include name="setUp"/>
+          <include name="enterDirectionInfo"/>
+          <include name="getTestMethodName"/>
+          <include name="verifyNavigationLinks"/>
+          <include name="closeDriver"/>
+          <include name="getTestStatus"/>
+          <include name="launchMapSyncApplication"/>
+        </methods>
+      </class> <!-- testcases.ExcuteTest -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

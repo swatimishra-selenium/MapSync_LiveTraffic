@@ -1,0 +1,55 @@
+<project name="MapSync_LiveTraffic" basedir=".">
+ <taskdef name="testng" classname="org.testng.TestNGAntTask">
+     <classpath>
+       <pathelement location="libs/testng-6.14.3.jar"/>
+     </classpath>
+   </taskdef>
+    <property name="LIB" value="${basedir}/libs" />
+    <property name="BIN" value="${basedir}/bin" />
+ <property name="SRC" value="${basedir}/src" />
+ 
+    <path id="master-classpath">
+     <pathelement location="${BIN}"/>
+       <fileset dir="${LIB}" includes="**/*.jar"/>
+    </path>
+ 
+  <target name="clean" >
+       <delete>
+          <fileset dir="${BIN}" includes="**/*.class" />
+       </delete>
+   
+   <delete dir="${basedir}/test-output">
+           </delete>
+           <mkdir dir="${basedir}/test-output">
+           </mkdir>
+    </target>
+ 
+ <target name="compile">
+       <javac srcdir="${SRC}" destdir="${BIN}">
+         <classpath refid="master-classpath"> 
+         </classpath>
+       </javac>
+    </target>
+ 
+ <target name="run">
+  <testng outputdir="${basedir}/test-output" classpathref="master-classpath"> 
+   <xmlfileset dir="${basedir}" includes="testng.xml"/> 
+     </testng>
+    </target>
+     
+    <target name="generateReport">
+        <delete dir="${basedir}/testng-xslt">
+        </delete>
+        <mkdir dir="${basedir}/testng-xslt">
+        </mkdir>
+        <xslt in="${basedir}/test-output/testng-results.xml" style="${basedir}/resources/testng-results.xsl" out="${basedir}/testng-xslt/index.html">
+            <param expression="${basedir}/testng-xslt/" name="testNgXslt.outputDir" />
+            <param expression="true" name="testNgXslt.sortTestCaseLinks" />
+            <param expression="FAIL,SKIP,PASS,CONF,BY_CLASS" name="testNgXslt.testDetailsFilter" />
+            <param expression="true" name="testNgXslt.showRuntimeTotals" />
+            <classpath refid="master-classpath">
+            </classpath>
+        </xslt>
+    </target>
+
+</project> 
